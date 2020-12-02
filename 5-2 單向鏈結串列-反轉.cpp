@@ -77,16 +77,14 @@ void LinkedList::PrintList()
 }
 void LinkedList::Reverse()
 {
-    ListNode *previous = 0,
-             *current = first,
-             *preceding = first->link;
-    while (preceding != 0) {
-        current->link = previous; 
-        previous = current; 
-        current = preceding;
-        preceding = preceding->link;
-    }
-    current->link = previous; 
+    ListNode *prev,*current,*forward;
+    forward=first;
+    while (forward != 0) {
+        prev=current; 
+        current=forward; 
+        current->link=prev;
+        forward = forward->link;
+    } 
     first = current;
 }
 int main(int argc, char *argv[])
