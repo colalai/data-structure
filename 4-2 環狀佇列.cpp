@@ -11,8 +11,8 @@ private:
 
 void Queue::Enqueue(int x)
 {
-    rear = (rear + 1) % 10;
     arr[rear] = x;
+    rear = (rear + 1) % 10;
     
 }
 int Queue::Dequeue()
@@ -23,7 +23,7 @@ int Queue::Dequeue()
 }
 void Queue::PrintQueue()
 {
-    for (int i =front+1; i !=rear+1; i=(i+1)%10)
+    for (int i =front; i !=rear; i=(i+1)%10)
     {
         cout << arr[i] << " ";
        
