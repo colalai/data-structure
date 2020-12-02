@@ -82,8 +82,8 @@ void LinkedList::Reverse()
     while (forward != 0) {
         prev=current; 
         current=forward; 
-        current->link=prev;
         forward = forward->link;
+        current->link=prev;
     } 
     first = current;
 }
