@@ -8,18 +8,18 @@ class TreeNode
 {
 public:
 	friend class BinTree;
-	TreeNode(int a) {data = a; leftChild = rightChild = 0;};
+	TreeNode(int a) { data = a; leftChild = rightChild = 0; };
 private:
 	int data;
-	TreeNode *leftChild;
-	TreeNode *rightChild;
+	TreeNode* leftChild;
+	TreeNode* rightChild;
 };
 class BinTree
 {
 private:
 	TreeNode* root;
-	
-	
+
+
 
 
 public:
@@ -34,18 +34,18 @@ public:
 
 void BinTree::BuildTree(int data[], int n)
 {
-	TreeNode* current=0;
-	TreeNode* parent=0;
-	for(int i=0;i<n;i++)
+	TreeNode* current = 0;
+	TreeNode* parent = 0;
+	for (int i = 0; i < n; i++)
 	{
 		if (root == NULL) {
 			TreeNode* newNode = new TreeNode(data[i]);
-			root=newNode;
+			root = newNode;
 		}
 		else {
 			TreeNode* newNode = new TreeNode(data[i]);
 			current = root;
-			while (current != 0  ) {
+			while (current != 0) {
 				parent = current;
 				if (current->data > data[i])
 					current = current->leftChild;
@@ -54,57 +54,61 @@ void BinTree::BuildTree(int data[], int n)
 			}
 			if (parent->data > data[i])
 				parent->leftChild = newNode;
-				
+
 			else
 				parent->rightChild = newNode;
 		}
-		
+
 	}
 }
-void BinTree::Inorder(TreeNode*)
+void BinTree::Inorder(TreeNode* a)
 {
-    if(TreeNode*!=0)
-    {
-    	Inorder(TreeNode->leftChild);
-    	cout<<TreeNode->data<<" ";
-    	Inorder(TreeNode->rightChild);
-    }
-    cout<<'\n';
+	
+	
+		Inorder(a->leftChild);
+		if (a != 0)
+		cout << a->data << " ";
+		Inorder(a->rightChild);
+	
 }
-void BinTree::Preorder(TreeNode*)
+void BinTree::Preorder(TreeNode* a)
 {
-	cout<<TreeNode->data<<" ";
-    Preorder(TreeNode->leftChild);
-    Preorder(TreeNode->rightChild);
+	if (a != 0)
+	cout << a->data << " ";
+	Preorder(a->leftChild);
+	Preorder(a->rightChild);
 }
-void BinTree::Postorder(TreeNode*)
+void BinTree::Postorder(TreeNode* a)
 {
-    
-    Postorder(TreeNode->leftChild);
-    Postorder(TreeNode->rightChild);
-    cout<<TreeNode->data<<" ";
+
+	Postorder(a->leftChild);
+	Postorder(a->rightChild);
+	if (a != 0)
+	cout << a->data << " ";
 }
 void BinTree::Plot() {
 	int MAX_HEIGHT = 7, CHAR_SPACE = 2;
 	int capacity = pow(2, MAX_HEIGHT);
-	int *arr = new int[capacity] {};
+	int* arr = new int[capacity] {};
 	queue<TreeNode*> q;
 	queue<int> index_q;
 	q.push(root);
 	index_q.push(1);
-	TreeNode *currentNode;
+	TreeNode* currentNode;
 	int currentIndex, tail = 0;
-	while(!q.empty()) {
+	while (!q.empty()) {
 		currentNode = q.front(); q.pop();
 		currentIndex = index_q.front(); index_q.pop();
 		arr[currentIndex] = currentNode->data;
 		if (tail < currentIndex) tail = currentIndex;
 		if (currentNode->leftChild) {
 			q.push(currentNode->leftChild);
-			index_q.push(currentIndex * 2);}
+			index_q.push(currentIndex * 2);
+		}
 		if (currentNode->rightChild) {
 			q.push(currentNode->rightChild);
-			index_q.push(currentIndex * 2 + 1);}
+			index_q.push(currentIndex * 2 + 1);
+		}
 	}
 	int i, sps;
 	int max_level = tail == 1 ? 1 : sqrt(tail) + 1;
@@ -122,15 +126,15 @@ void BinTree::Plot() {
 	}
 }
 
-int main(int argc, char *argv[])
-{   
-    BinTree tree1;
-    int n;
-    cin >> n;
-    int *data = new int[n];
-    for (int i = 0; i < n; i++) cin >> data[i];
-    tree1.BuildTree(data, n);
-    Inorder(tree1);
-    Preorder(tree1);
-    Postorder(tree1);
+int main(int argc, char* argv[])
+{
+	BinTree tree1;
+	int n;
+	cin >> n;
+	int* data = new int[n];
+	for (int i = 0; i < n; i++) cin >> data[i];
+	tree1.BuildTree(data, n);
+	Inorder(tree1);
+	Preorder(tree1);
+	Postorder(tree1);
 }
