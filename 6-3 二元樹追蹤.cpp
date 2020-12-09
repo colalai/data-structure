@@ -64,66 +64,38 @@ void BinTree::BuildTree(int data[], int n)
 void BinTree::Inorder(TreeNode* a)
 {
 	
-	
-		Inorder(a->leftChild);
 		if (a != 0)
-		cout << a->data << " ";
-		Inorder(a->rightChild);
+		{
+    		Inorder(a->leftChild);
+    		cout << a->data << " ";
+    		Inorder(a->rightChild);
+		}
 	
 }
 void BinTree::Preorder(TreeNode* a)
 {
 	if (a != 0)
-	cout << a->data << " ";
-	Preorder(a->leftChild);
-	Preorder(a->rightChild);
+	{
+    	cout << a->data << " ";
+    	Preorder(a->leftChild);
+    	Preorder(a->rightChild);
+	}
 }
 void BinTree::Postorder(TreeNode* a)
 {
-
-	Postorder(a->leftChild);
-	Postorder(a->rightChild);
-	if (a != 0)
-	cout << a->data << " ";
+    if (a != 0)
+    {
+    	Postorder(a->leftChild);
+    	Postorder(a->rightChild);
+    	cout << a->data << " ";
+    }
 }
 void BinTree::Plot() {
-	int MAX_HEIGHT = 7, CHAR_SPACE = 2;
-	int capacity = pow(2, MAX_HEIGHT);
-	int* arr = new int[capacity] {};
-	queue<TreeNode*> q;
-	queue<int> index_q;
-	q.push(root);
-	index_q.push(1);
-	TreeNode* currentNode;
-	int currentIndex, tail = 0;
-	while (!q.empty()) {
-		currentNode = q.front(); q.pop();
-		currentIndex = index_q.front(); index_q.pop();
-		arr[currentIndex] = currentNode->data;
-		if (tail < currentIndex) tail = currentIndex;
-		if (currentNode->leftChild) {
-			q.push(currentNode->leftChild);
-			index_q.push(currentIndex * 2);
-		}
-		if (currentNode->rightChild) {
-			q.push(currentNode->rightChild);
-			index_q.push(currentIndex * 2 + 1);
-		}
-	}
-	int i, sps;
-	int max_level = tail == 1 ? 1 : sqrt(tail) + 1;
-	for (int lv = 1; lv <= max_level; lv++) {
-		sps = pow(2, max_level - lv) * CHAR_SPACE;
-		i = pow(2, lv - 1);
-		cout << setw(sps);
-		if (arr[i]) cout << arr[i]; else cout << " ";
-		sps *= 2;
-		for (i++; i <= pow(2, lv) - 1; i++) {
-			cout << setw(sps);
-			if (arr[i]) cout << arr[i]; else cout << " ";
-		}
-		cout << endl;
-	}
+	Inorder(root);
+		cout << '\n';
+		Preorder(root);
+		cout << '\n';
+		Postorder(root);
 }
 
 int main(int argc, char* argv[])
@@ -134,7 +106,5 @@ int main(int argc, char* argv[])
 	int* data = new int[n];
 	for (int i = 0; i < n; i++) cin >> data[i];
 	tree1.BuildTree(data, n);
-	Inorder(tree1);
-	Preorder(tree1);
-	Postorder(tree1);
+	tree1.Plot();
 }
