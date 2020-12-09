@@ -16,8 +16,8 @@ public:
     CircularList();
     void InsertFirst(int x);
     void InsertLast(int x);
-    int DeleteFirst();
-    int DeleteLast();
+    void DeleteFirst();
+    void DeleteLast();
     void PrintList();
 private:
     ListNode* last;
@@ -39,7 +39,7 @@ void CircularList::InsertFirst(int x)
         newNode->link = last->link;
         last->link = newNode;
     }
-   
+
 
 }
 void CircularList::InsertLast(int x)
@@ -57,21 +57,32 @@ void CircularList::InsertLast(int x)
         last = newNode;
     }
 }
-int CircularList::DeleteFirst()
+void CircularList::DeleteFirst()
 {
-    
-    return 0;
+    ListNode* current = last->link;
+    last->link = current->link;
+    delete current;
 }
-int CircularList::DeleteLast()
+void CircularList::DeleteLast()
 {
-    
-    return 0;
+    ListNode* p ;
+    ListNode* prev;
+    ListNode* current = last->link;
+
+    do {
+        p = prev;
+        prev = current;
+        current = current->link;
+    } while (current != last->link);
+    p->link = prev->link;
+    delete prev;
+    last = p;
 }
 void CircularList::PrintList()
 {
     ListNode* current = last->link;
-    
-    do{
+
+    do {
         cout << current->data << " ";
         current = current->link;
     } while (current != last->link);
