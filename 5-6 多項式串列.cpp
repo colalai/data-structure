@@ -72,6 +72,14 @@ void PolyList::Add(PolyList& b)
 			n->link = 0;
 		}
 		c.last = n;
+		if (c1 == 0)
+		{
+			c.last->link = c2;
+		}
+		if (c2 == 0)
+		{
+			c.last->link = c1;
+		}
 
 	}
 	
