@@ -58,13 +58,23 @@ void MaxHeap::Delete()
                 else
                     isHeap = true;
                 i = i * 2;
+                
             }
-            else if (arr[i * 2 + 1] > arr[i])
-                swap(arr[i], arr[i * 2 + 1]);
+            else if (arr[i * 2] < arr[i * 2 + 1]) 
+            {
+                
+                if (arr[i * 2 + 1] > arr[i])
+                    swap(arr[i], arr[i * 2 + 1]);
+                else
+                    isHeap = true;
+                i = i * 2 + 1;
+                
+            }
         }
         else
             isHeap = true;
-        i = i * 2 + 1;
+        
+        
     }
     tail--;
     
