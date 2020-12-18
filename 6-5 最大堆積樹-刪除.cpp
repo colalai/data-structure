@@ -49,7 +49,7 @@ void MaxHeap::Delete()
     arr[1] = arr[tail];
     while (isHeap!=true) 
     {
-        if(i*2 + 1<tail)
+        if(i * 2 < tail)
         {
             if (arr[i * 2] > arr[i * 2 + 1]) 
             {
