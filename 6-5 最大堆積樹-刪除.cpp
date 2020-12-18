@@ -47,8 +47,10 @@ void MaxHeap::Delete()
     bool isHeap = false;
     int i = 1;
     arr[1] = arr[tail];
-    while (isHeap!=true) {
-        if (i * 2 + 1 > tail) {
+    while (isHeap!=true) 
+    {
+        if(i*2 + 1<tail)
+        {
             if (arr[i * 2] > arr[i * 2 + 1]) 
             {
                 if (arr[i * 2] > arr[i])
@@ -59,20 +61,12 @@ void MaxHeap::Delete()
             }
             else if (arr[i * 2 + 1] > arr[i])
                 swap(arr[i], arr[i * 2 + 1]);
-            else
-                isHeap = true;
-            i = i * 2 + 1;
         }
-
         else
-        {
-            if (arr[i] < arr[i * 2])
-                swap(arr[i], arr[i * 2]);
             isHeap = true;
-        }
-
-        tail--;
+        i = i * 2 + 1;
     }
+    tail--;
     
 }
 int main(int argc, char* argv[])
