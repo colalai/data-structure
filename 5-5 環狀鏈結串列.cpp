@@ -4,97 +4,90 @@ using namespace std;
 class ListNode
 {
 public:
-    ListNode(int a) { data = a; link = 0; }
+    ListNode(int a) {data = a; link = 0;}
 private:
     int data;
-    ListNode* link;
+    ListNode *link;
     friend class CircularList;
 };
 class CircularList
 {
 public:
-    CircularList();
     void InsertFirst(int x);
     void InsertLast(int x);
     void DeleteFirst();
     void DeleteLast();
     void PrintList();
+    void Reverse();
 private:
-    ListNode* last;
+    ListNode *last=0;
 };
-CircularList::CircularList()
-{
-    last = 0;
-}
+
 void CircularList::InsertFirst(int x)
 {
-    if (last == 0)
+    
+    ListNode* newnode=new ListNode(x);
+    if(last==0)
     {
-        ListNode* newNode = new ListNode(x);
-        last = newNode;
-        last->link = last;
+        last=newnode;
+        last->link=newnode;
     }
-    else {
-        ListNode* newNode = new ListNode(x);
-        newNode->link = last->link;
-        last->link = newNode;
-    }
-
-
+    newnode->link=last->link;
+    last->link=newnode;
+    
+        
 }
 void CircularList::InsertLast(int x)
 {
-    if (last == 0)
+    ListNode* newnode=new ListNode(x);
+    if(last==0)
     {
-        ListNode* newNode = new ListNode(x);
-        last = newNode;
-        last->link = last;
+        last=newnode;
+        last->link=newnode;
     }
-    else {
-        ListNode* newNode = new ListNode(x);
-        newNode->link = last->link;
-        last->link = newNode;
-        last = newNode;
+    else
+    {
+        newnode->link=last->link;
+        last->link=newnode;
+        last=newnode;
     }
 }
 void CircularList::DeleteFirst()
 {
-    ListNode* current = last->link;
-    last->link = current->link;
+    ListNode* current=last->link;
+    last->link=last->link->link;
     delete current;
+    
 }
 void CircularList::DeleteLast()
 {
-    ListNode* p ;
-    ListNode* prev;
-    ListNode* current = last->link;
-
-    do {
-        p = prev;
-        prev = current;
-        current = current->link;
-    } while (current != last->link);
-    p->link = prev->link;
+    ListNode* prev=last;
+    ListNode* current=last->link;
+    while(current->link!=last)
+    {
+        current=current->link;
+    }
+    current->link=last->link;
     delete prev;
-    last = p;
+    last=current;
+
 }
 void CircularList::PrintList()
 {
-    ListNode* current = last->link;
-
-    do {
-        cout << current->data << " ";
-        current = current->link;
-    } while (current != last->link);
-    cout << endl;
+    ListNode* current=last;
+    do{
+        current=current->link;
+        cout<<current->data<<" ";
+    }while(current!=last);
 }
-int main(int argc, char* argv[])
+
+int main(int argc, char *argv[])
 {
     CircularList list;
     int times, input;
-    for (cin >> times; times > 0; times--) { cin >> input; list.InsertFirst(input); }
-    for (cin >> times; times > 0; times--) list.DeleteFirst();
-    for (cin >> times; times > 0; times--) { cin >> input; list.InsertLast(input); }
-    for (cin >> times; times > 0; times--) list.DeleteLast();
+    for(cin >> times; times > 0; times--) {cin >> input; list.InsertFirst(input);}
+    for(cin >> times; times > 0; times--) list.DeleteFirst();
+    for(cin >> times; times > 0; times--) {cin >> input; list.InsertLast(input);}
+    for(cin >> times; times > 0; times--) list.DeleteLast();
     list.PrintList();
 }
