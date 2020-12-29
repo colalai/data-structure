@@ -16,23 +16,13 @@ private:
 };
 void MaxHeap::Insert(int x)
 {
-    tail++;
-    int i = tail;
-    arr[i] = x;
-    bool isHeap = false;
-    while (isHeap!=true)
+    int current=++tail;
+    while(current!=1 && arr[current/2]<x)
     {
-        if (i == 1)
-        {
-            isHeap = true;
-        }
-        else if (arr[i] >= arr[i / 2])
-        {
-            swap(arr[i], arr[i / 2]);
-        }
-        i--;
+        arr[current]=arr[current/2];
+        current/=2;
     }
-
+    arr[current]=x;
 }
 void MaxHeap::Print()
 {
