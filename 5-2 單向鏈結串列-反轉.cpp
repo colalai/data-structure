@@ -1,91 +1,89 @@
 #include <iostream>
 using namespace std;
+
 class ListNode
 {
 public:
-    ListNode(int a) { data = a; link = 0; }
+    ListNode(int a) {data = a; link = 0;}
 private:
     int data;
-    ListNode* link;
+    ListNode *link;
     friend class LinkedList;
 };
-
 class LinkedList
 {
 public:
-    LinkedList() :first(0) {};
     void InsertFirst(int x);
     void InsertLast(int x);
-    int DeleteFirst();
-    int DeleteLast();
+    void DeleteFirst();
+    void DeleteLast();
     void PrintList();
     void Reverse();
 private:
-    ListNode* first;
-    ListNode* last;
+    ListNode *first=0,*last=0;
 };
-
 void LinkedList::InsertFirst(int x)
 {
-    ListNode* newNode = new ListNode(x);
-    newNode->link = first;
-    first = newNode;
+    ListNode* newnode=new ListNode(x);
+    newnode->link=first;
+    first=newnode;
+    if(last==0)
+        last=newnode;
 }
 void LinkedList::InsertLast(int x)
 {
-    ListNode* newNode = new ListNode(x);
-    if (first == 0) {
-        first = newNode;
-        return;
+    ListNode* newnode=new ListNode(x);
+    if(last==0)
+    {
+        first=newnode;
+        last=newnode;
     }
-    ListNode* current = first->link;
-    while (current->link != NULL) {
-        current = current->link;
+    else
+    {
+        last->link=newnode;
+        last=newnode;
     }
-    current->link = newNode;
 }
-int LinkedList::DeleteFirst()
+void LinkedList::DeleteFirst()
 {
-    ListNode* current = first;
-    first = current->link;
+    ListNode* current=first;
+    first=first->link;
     delete current;
-    current = 0; 
+    
 }
-int LinkedList::DeleteLast()
+void LinkedList::DeleteLast()
 {
-    ListNode* prev = first;
-    while (prev->link != last) {
-        prev = prev->link;
+    ListNode* current=first;
+    while(current->link!=last)
+    {
+        current=current->link;
     }
-    ListNode* current = first,* previous = 0;
-    while (current != 0 && current->data != prev->data){
-        previous = current; 
-        current = current->link; 
-    }
-    previous->link = current->link;
-    delete current;
-    current = 0;
+    delete current->link;
+    current->link=0;
+    last=current;
+
 }
 void LinkedList::PrintList()
 {
-    ListNode* current = first;
-    while (current != 0) {
-        cout << current->data << " ";
-        current = current->link;
+    ListNode* current=first;
+    while(current!=0)
+    {
+        cout<<current->data<<" ";
+        current=current->link;
     }
-    cout << endl;
+    cout<<'\n';
 }
 void LinkedList::Reverse()
 {
-    ListNode *prev,*current,*forward;
-    forward=first;
-    while (forward != 0) {
-        prev=current; 
-        current=forward; 
-        forward = forward->link;
-        current->link=prev;
-    } 
-    first = current;
+    ListNode *current=first,*prev=0;
+    while(current)
+    {
+        ListNode *p=prev;
+        prev=current;
+        current=current->link;
+        prev->link=p;
+    }
+    first=prev;
 }
 int main(int argc, char *argv[])
 {
@@ -93,6 +91,6 @@ int main(int argc, char *argv[])
     int times, input;
     for(cin >> times; times > 0; times--) {cin >> input; list.InsertFirst(input);}
     list.PrintList();
-	list.Reverse();
+    list.Reverse();
     list.PrintList();
 }
