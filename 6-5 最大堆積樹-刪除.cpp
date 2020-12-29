@@ -17,23 +17,12 @@ private:
 };
 void MaxHeap::Insert(int x)
 {
-    tail++;
-    int i = tail;
-    arr[i] = x;
-    bool isHeap = false;
-    while (isHeap!=true)
-    {
-        if (i == 1)
-        {
-            isHeap = true;
-        }
-        else if (arr[i] >= arr[i / 2])
-        {
-            swap(arr[i], arr[i / 2]);
-        }
-        i--;
-    }
-
+   int current = ++tail;
+	while (current != 1 && arr[current / 2] < x) {				
+		arr[current] = arr[current / 2];				
+		current /= 2;
+	}
+	arr[current] = x;
 }
 void MaxHeap::Print()
 {
@@ -44,40 +33,20 @@ void MaxHeap::Print()
 }
 void MaxHeap::Delete()
 {
-    bool isHeap = false;
-    int i = 1;
     arr[1] = arr[tail];
-    while (isHeap!=true) 
-    {
-        if(i * 2 < tail)
-        {
-            if (arr[i * 2] > arr[i * 2 + 1]) 
-            {
-                if (arr[i * 2] > arr[i])
-                    swap(arr[i], arr[i * 2]);
-                else
-                    isHeap = true;
-                i = i * 2;
-                
-            }
-            else if (arr[i * 2] < arr[i * 2 + 1]) 
-            {
-                
-                if (arr[i * 2 + 1] > arr[i])
-                    swap(arr[i], arr[i * 2 + 1]);
-                else
-                    isHeap = true;
-                i = i * 2 + 1;
-                
-            }
-        }
-        else
-            isHeap = true;
-        
-        
-    }
-    tail--;
-    
+	arr[tail--] = 0;
+	
+	int current = 1;
+	while (current < tail && (arr[current] < arr[current*2] || arr[current] < arr[current*2+1])) {
+		if (arr[current*2] > arr[current*2+1]) {
+			swap(arr[current], arr[current*2]);
+			current = current * 2;
+		}
+		else {
+			swap(arr[current], arr[current*2+1]);
+			current = current * 2 + 1;
+		}
+	}
 }
 int main(int argc, char* argv[])
 {
